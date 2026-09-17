@@ -262,7 +262,7 @@ a:hover { color: var(--red-deep); }
 /* Photo placeholder */
 
 .photo-slot {
-  aspect-ratio: 4 / 5;
+  aspect-ratio: 16 / 10;
   border: 1px dashed var(--line);
   background: var(--paper);
   display: flex;
@@ -272,6 +272,231 @@ a:hover { color: var(--red-deep); }
   font-family: var(--font-mono);
   font-size: 0.75rem;
   margin-bottom: 14px;
+  overflow: hidden;
+}
+
+.photo-slot img,
+.media-slot img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Media placeholder – for diagrams, screenshots, photos dropped into cards
+   and side-by-side sections. Swap the <div> for a real <img> when ready. */
+
+.media-slot {
+  aspect-ratio: 16 / 9;
+  border: 1px dashed var(--line);
+  background: var(--paper);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #93a19e;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+  margin-bottom: 14px;
+  overflow: hidden;
+}
+
+.media-slot.icon {
+  aspect-ratio: 1 / 1;
+  width: 200px;
+  margin-bottom: 16px;
+  font-size: 0.6rem;
+}
+
+/* Image fitting helpers – photos fill and crop (cover, the default), while
+   diagrams, infographics, and icon illustrations must never be cropped, so
+   they use .fit-contain. Ratio classes match the slot to the source image so
+   the crop stays gentle. */
+
+.media-slot.fit-contain,
+.photo-slot.fit-contain {
+  background: var(--white);
+  border-style: solid;
+  padding: 10px;
+}
+
+.media-slot.fit-contain img,
+.photo-slot.fit-contain img {
+  object-fit: contain;
+}
+
+.media-slot.ratio-3-2 { aspect-ratio: 3 / 2; }
+.media-slot.ratio-4-3 { aspect-ratio: 4 / 3; }
+.media-slot.ratio-16-9 { aspect-ratio: 16 / 9; }
+.media-slot.ratio-pano { aspect-ratio: 30 / 10; }
+
+/* Portrait ratio for headshots in a .photo-slot (faculty, officers) — the
+   default 16:10 is landscape and crops heads off a portrait photo. */
+
+.photo-slot.ratio-4-5 { aspect-ratio: 4 / 5; }
+.photo-slot.ratio-3-4 { aspect-ratio: 3 / 4; }
+
+/* Images set the slot height when a ratio class is applied inside a
+   section figure, overriding the default panoramic slot. */
+
+.section-figure .media-slot.ratio-3-2 { aspect-ratio: 3 / 2; }
+.section-figure .media-slot.ratio-4-3 { aspect-ratio: 4 / 3; }
+.section-figure .media-slot.ratio-16-9 { aspect-ratio: 16 / 9; }
+
+/* Spotlight – for a single featured item (department chair, a lead project)
+   set apart from the rest of a grid instead of matching every other card. */
+
+.card.panel.spotlight {
+  border-left-width: 5px;
+  border-left-color: var(--red);
+}
+
+.card.panel.spotlight .card-title {
+  font-size: 1.35rem;
+}
+
+/* Field group label – groups a card grid under a named category instead of
+   leaving every card in one undifferentiated row. */
+
+.field-group-label {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--red);
+  border-bottom: 2px solid var(--ink);
+  padding-bottom: 8px;
+  margin: 44px 0 18px 0;
+}
+
+.field-group-label:first-of-type {
+  margin-top: 0;
+}
+
+/* Index list – a directory-style list of links, used instead of another
+   card grid so not every section on a page reads as the same pattern. */
+
+.index-list {
+  border-top: 1px solid var(--line);
+}
+
+.index-list a {
+  display: flex;
+  align-items: baseline;
+  gap: 20px;
+  padding: 16px 4px;
+  border-bottom: 1px solid var(--line);
+  text-decoration: none;
+  color: var(--ink);
+}
+
+.index-list a:hover {
+  color: var(--red);
+}
+
+.index-list a:hover .idx-num {
+  color: var(--red);
+}
+
+.index-list .idx-num {
+  font-family: var(--font-mono);
+  color: var(--muted);
+  font-size: 0.85rem;
+  width: 24px;
+  flex-shrink: 0;
+}
+
+.index-list .idx-title {
+  font-family: var(--font-display);
+  font-weight: 600;
+  min-width: 190px;
+  flex-shrink: 0;
+}
+
+.index-list .idx-desc {
+  color: var(--muted);
+  font-size: 0.92rem;
+}
+
+@media (max-width: 650px) {
+  .index-list a { flex-wrap: wrap; }
+  .index-list .idx-desc { width: 100%; padding-left: 44px; }
+}
+
+/* Section figure – pairs a paragraph with a media slot, alternating sides,
+   for the long-form topic pages instead of an unbroken column of text. */
+
+.section-figure {
+  display: flex;
+  gap: 30px;
+  align-items: flex-start;
+}
+
+.section-figure .media-slot {
+  width: 500px;
+  flex-shrink: 0;
+  margin-bottom: 0;
+  aspect-ratio: 30 / 10;
+}
+
+.section-figure.reverse {
+  flex-direction: row-reverse;
+}
+
+@media (max-width: 768px) {
+  .section-figure { flex-direction: column; }
+  .section-figure .media-slot { width: 100%; aspect-ratio: 16 / 9; }
+}
+
+/* Project spotlight + list row – an alternative to a uniform card grid for
+   the projects page. */
+
+.project-featured {
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  gap: 30px;
+  border: 1px solid var(--line);
+  border-left: 5px solid var(--red);
+  background: var(--white);
+  padding: 28px;
+  margin-bottom: 40px;
+}
+
+.project-featured .media-slot {
+  height: 100%;
+  margin-bottom: 0;
+  aspect-ratio: auto;
+}
+
+.project-featured .media-slot.ratio-3-2,
+.project-featured .media-slot.ratio-4-3,
+.project-featured .media-slot.ratio-16-9 {
+  height: auto;
+}
+
+@media (max-width: 768px) {
+  .project-featured { grid-template-columns: 1fr; }
+  .project-featured .media-slot { aspect-ratio: 16 / 9; }
+}
+
+.project-row {
+  display: flex;
+  gap: 22px;
+  align-items: flex-start;
+  padding: 22px 4px;
+  border-bottom: 1px solid var(--line);
+}
+
+.project-row .media-slot {
+  width: 320px;
+  flex-shrink: 0;
+  margin-bottom: 0;
+  aspect-ratio: 4 / 3;
+}
+
+@media (max-width: 576px) {
+  .project-row { flex-direction: column; }
+  .project-row .media-slot { width: 100%; }
 }
 
 /* Tables */
