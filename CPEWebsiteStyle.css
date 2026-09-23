@@ -1,4 +1,8 @@
-/* CpE @ UE - shared stylesheet */
+/* CpE @ UE - shared stylesheet
+   Design language: rounded, pill-shaped, bold sans — following the visual
+   style of Framework Computer's site (large radii, pill buttons/badges,
+   soft elevation instead of hairline borders, no serif). Color theme is
+   unchanged — same ink/teal/paper palette as before. */
 
 :root {
   --ink: #14201f;
@@ -10,8 +14,15 @@
   --muted: #55625f;
 
   --font-display: 'IBM Plex Sans', sans-serif;
-  --font-body: 'IBM Plex Serif', serif;
+  --font-body: 'IBM Plex Sans', sans-serif;
   --font-mono: 'IBM Plex Mono', monospace;
+
+  --radius-lg: 16px;
+  --radius-md: 12px;
+  --radius-pill: 999px;
+
+  --shadow-soft: 0 1px 2px rgba(20, 32, 31, 0.12);
+  --shadow-hover: 0 4px 8px rgba(20, 32, 31, 0.16);
 }
 
 * { box-sizing: border-box; }
@@ -23,8 +34,8 @@ body {
   font-family: var(--font-body);
   color: var(--ink);
   background: var(--paper);
-  line-height: 1.7;
-  font-size: 17px;
+  line-height: 1.5;
+  font-size: 16px;
 }
 
 h1, h2, h3, h4,
@@ -33,19 +44,29 @@ h1, h2, h3, h4,
 }
 
 h1, h2, h3, h4 {
-  font-weight: 600;
-  line-height: 1.25;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
   margin: 0 0 0.6em 0;
 }
 
-h1 { font-size: 2.6rem; }
+h2, h3, h4 { font-weight: 600; }
+
+h1 { font-size: 3rem; }
 h2 { font-size: 1.7rem; }
 h3 { font-size: 1.2rem; }
 
 p { max-width: 68ch; }
 
-a { color: var(--red); }
-a:hover { color: var(--red-deep); }
+a {
+  color: var(--red);
+  text-decoration: none;
+}
+
+a:hover {
+  color: var(--red-deep);
+  text-decoration: underline;
+}
 
 .container-page {
   max-width: 1100px;
@@ -73,9 +94,13 @@ a:hover { color: var(--red-deep); }
 .site-navbar .navbar-brand {
   color: var(--white);
   text-decoration: none;
-  font-weight: 600;
+  font-weight: 700;
   font-size: 1.05rem;
   letter-spacing: 0.01em;
+}
+
+.site-navbar .navbar-brand:hover {
+  text-decoration: none;
 }
 
 .site-navbar .navbar-brand span {
@@ -85,7 +110,7 @@ a:hover { color: var(--red-deep); }
 .site-nav-links {
   display: flex;
   flex-wrap: wrap;
-  gap: 4px 22px;
+  gap: 2px 6px;
   list-style: none;
   margin: 0;
   padding: 0;
@@ -94,18 +119,23 @@ a:hover { color: var(--red-deep); }
 .site-nav-links a {
   color: #cbd9d6;
   text-decoration: none;
-  font-size: 0.95rem;
-  padding: 4px 0;
-  border-bottom: 2px solid transparent;
+  font-size: 0.92rem;
+  font-weight: 500;
+  padding: 8px 14px;
+  border-radius: var(--radius-pill);
+  transition: background-color 0.15s ease, color 0.15s ease;
 }
 
 .site-nav-links a:hover {
   color: var(--white);
+  background: rgba(255, 255, 255, 0.08);
+  text-decoration: none;
 }
 
 .site-nav-links a.active {
   color: var(--white);
-  border-bottom-color: var(--red);
+  background: var(--red);
+  font-weight: 600;
 }
 
 /* Hero */
@@ -117,16 +147,20 @@ a:hover { color: var(--red-deep); }
     repeating-linear-gradient(0deg, rgba(255,255,255,0.05) 0, rgba(255,255,255,0.05) 1px, transparent 1px, transparent 48px),
     repeating-linear-gradient(90deg, rgba(255,255,255,0.05) 0, rgba(255,255,255,0.05) 1px, transparent 1px, transparent 48px);
   color: var(--white);
-  padding: 64px 0 48px 0;
+  padding: 72px 0 56px 0;
 }
 
 .hero .spec-label {
-  color: var(--red);
-  font-family: var(--font-mono);
-  font-size: 0.8rem;
-  letter-spacing: 0.06em;
-  display: block;
-  margin-bottom: 14px;
+  color: var(--white);
+  background: rgba(255, 255, 255, 0.1);
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 0.78rem;
+  letter-spacing: 0.02em;
+  display: inline-block;
+  padding: 6px 16px;
+  border-radius: var(--radius-pill);
+  margin-bottom: 18px;
 }
 
 .hero h1 {
@@ -153,43 +187,47 @@ a:hover { color: var(--red-deep); }
   background: var(--red);
   border: 1px solid var(--red);
   color: var(--white);
-  border-radius: 3px;
-  padding: 10px 22px;
+  border-radius: var(--radius-pill);
+  padding: 12px 28px;
   font-size: 0.95rem;
+  font-weight: 600;
   text-decoration: none;
   display: inline-block;
+  transition: background-color 0.15s ease, transform 0.15s ease;
 }
 
 .btn-cpe-primary:hover {
   background: var(--red-deep);
   border-color: var(--red-deep);
   color: var(--white);
+  text-decoration: none;
+  transform: translateY(-1px);
 }
 
 .btn-cpe-outline {
   background: transparent;
   border: 1px solid #6e7c79;
   color: var(--white);
-  border-radius: 3px;
-  padding: 10px 22px;
+  border-radius: var(--radius-pill);
+  padding: 12px 28px;
   font-size: 0.95rem;
+  font-weight: 600;
   text-decoration: none;
   display: inline-block;
+  transition: border-color 0.15s ease, transform 0.15s ease;
 }
 
 .btn-cpe-outline:hover {
   border-color: var(--white);
   color: var(--white);
+  text-decoration: none;
+  transform: translateY(-1px);
 }
 
 /* Sections */
 
 .section {
-  padding: 56px 0;
-  border-bottom: 1px solid var(--line);
-}
-
-.section:last-of-type {
+  padding: 72px 0;
   border-bottom: none;
 }
 
@@ -198,12 +236,16 @@ a:hover { color: var(--red-deep); }
 }
 
 .section-head .spec-label {
-  font-family: var(--font-mono);
-  color: var(--muted);
-  font-size: 0.8rem;
-  letter-spacing: 0.04em;
-  display: block;
-  margin-bottom: 10px;
+  font-family: var(--font-display);
+  font-weight: 600;
+  color: var(--red);
+  background: rgba(11, 110, 119, 0.08);
+  font-size: 0.78rem;
+  letter-spacing: 0.02em;
+  display: inline-block;
+  padding: 5px 14px;
+  border-radius: var(--radius-pill);
+  margin-bottom: 12px;
 }
 
 /* Panels */
@@ -211,22 +253,24 @@ a:hover { color: var(--red-deep); }
 .card.panel {
   background: var(--white);
   border: 1px solid var(--line);
-  border-left: 3px solid var(--line);
-  border-radius: 2px;
-  box-shadow: none;
-  transition: border-left-color 0.15s ease;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-soft);
+  transition: box-shadow 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
 }
 
 .card.panel:hover {
-  border-left-color: var(--red);
+  border-color: var(--red);
+  box-shadow: var(--shadow-hover);
+  transform: translateY(-1px);
 }
 
 .card.panel .card-body {
-  padding: 22px;
+  padding: 26px;
 }
 
 .card.panel .card-title {
   font-family: var(--font-display);
+  font-weight: 600;
   font-size: 1.05rem;
   margin-bottom: 8px;
 }
@@ -247,29 +291,31 @@ a:hover { color: var(--red-deep); }
 }
 
 .tag {
-  font-family: var(--font-mono);
-  font-size: 0.7rem;
-  letter-spacing: 0.03em;
-  background: var(--paper);
-  border: 1px solid var(--line);
-  color: var(--muted);
-  padding: 2px 8px;
-  border-radius: 2px;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 0.72rem;
+  letter-spacing: 0.01em;
+  background: var(--ink);
+  color: var(--white);
+  padding: 4px 14px;
+  border-radius: var(--radius-pill);
   display: inline-block;
-  margin: 0 6px 6px 0;
+  margin: 0 6px 10px 0;
 }
 
 /* Photo placeholder */
 
 .photo-slot {
   aspect-ratio: 16 / 10;
-  border: 1px dashed var(--line);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
   background: var(--paper);
   display: flex;
   align-items: center;
   justify-content: center;
   color: #93a19e;
-  font-family: var(--font-mono);
+  font-family: var(--font-display);
+  font-weight: 500;
   font-size: 0.75rem;
   margin-bottom: 14px;
   overflow: hidden;
@@ -284,19 +330,21 @@ a:hover { color: var(--red-deep); }
 }
 
 /* Media placeholder – for diagrams, screenshots, photos dropped into cards
-   and side-by-side sections. Swap the <div> for a real <img> when ready. */
+   and side-by-side sections. */
 
 .media-slot {
   aspect-ratio: 16 / 9;
-  border: 1px dashed var(--line);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
   background: var(--paper);
   display: flex;
   align-items: center;
   justify-content: center;
   color: #93a19e;
-  font-family: var(--font-mono);
+  font-family: var(--font-display);
+  font-weight: 500;
   font-size: 0.72rem;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.01em;
   margin-bottom: 14px;
   overflow: hidden;
 }
@@ -306,6 +354,7 @@ a:hover { color: var(--red-deep); }
   width: 200px;
   margin-bottom: 16px;
   font-size: 0.6rem;
+  border-radius: var(--radius-md);
 }
 
 /* Image fitting helpers – photos fill and crop (cover, the default), while
@@ -316,8 +365,7 @@ a:hover { color: var(--red-deep); }
 .media-slot.fit-contain,
 .photo-slot.fit-contain {
   background: var(--white);
-  border-style: solid;
-  padding: 10px;
+  padding: 14px;
 }
 
 .media-slot.fit-contain img,
@@ -347,8 +395,8 @@ a:hover { color: var(--red-deep); }
    set apart from the rest of a grid instead of matching every other card. */
 
 .card.panel.spotlight {
-  border-left-width: 5px;
-  border-left-color: var(--red);
+  border: 2px solid var(--red);
+  background: linear-gradient(180deg, rgba(11,110,119,0.05), var(--white) 120px);
 }
 
 .card.panel.spotlight .card-title {
@@ -359,14 +407,16 @@ a:hover { color: var(--red-deep); }
    leaving every card in one undifferentiated row. */
 
 .field-group-label {
-  font-family: var(--font-mono);
-  font-size: 0.75rem;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 0.85rem;
+  letter-spacing: 0.01em;
   color: var(--red);
-  border-bottom: 2px solid var(--ink);
-  padding-bottom: 8px;
-  margin: 44px 0 18px 0;
+  background: rgba(11, 110, 119, 0.08);
+  display: inline-block;
+  padding: 6px 18px;
+  border-radius: var(--radius-pill);
+  margin: 44px 0 20px 0;
 }
 
 .field-group-label:first-of-type {
@@ -377,33 +427,51 @@ a:hover { color: var(--red-deep); }
    card grid so not every section on a page reads as the same pattern. */
 
 .index-list {
-  border-top: 1px solid var(--line);
+  border-top: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
 .index-list a {
   display: flex;
-  align-items: baseline;
-  gap: 20px;
-  padding: 16px 4px;
-  border-bottom: 1px solid var(--line);
+  align-items: center;
+  gap: 18px;
+  padding: 16px 18px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
   text-decoration: none;
   color: var(--ink);
+  background: var(--white);
+  transition: box-shadow 0.15s ease, border-color 0.15s ease, transform 0.15s ease;
 }
 
 .index-list a:hover {
-  color: var(--red);
+  color: var(--ink);
+  text-decoration: none;
+  border-color: var(--red);
+  box-shadow: var(--shadow-soft);
+  transform: translateX(2px);
 }
 
 .index-list a:hover .idx-num {
-  color: var(--red);
+  background: var(--red);
 }
 
 .index-list .idx-num {
-  font-family: var(--font-mono);
-  color: var(--muted);
-  font-size: 0.85rem;
-  width: 24px;
+  font-family: var(--font-display);
+  font-weight: 700;
+  color: var(--white);
+  background: var(--ink);
+  font-size: 0.82rem;
+  width: 30px;
+  height: 30px;
+  border-radius: var(--radius-pill);
+  display: flex;
+  align-items: center;
+  justify-content: center;
   flex-shrink: 0;
+  transition: background-color 0.15s ease;
 }
 
 .index-list .idx-title {
@@ -420,7 +488,7 @@ a:hover { color: var(--red-deep); }
 
 @media (max-width: 650px) {
   .index-list a { flex-wrap: wrap; }
-  .index-list .idx-desc { width: 100%; padding-left: 44px; }
+  .index-list .idx-desc { width: 100%; padding-left: 48px; }
 }
 
 /* Section figure – pairs a paragraph with a media slot, alternating sides,
@@ -456,9 +524,11 @@ a:hover { color: var(--red-deep); }
   grid-template-columns: 1.15fr 1fr;
   gap: 30px;
   border: 1px solid var(--line);
-  border-left: 5px solid var(--red);
+  border-top: 4px solid var(--red);
+  border-radius: var(--radius-lg);
   background: var(--white);
-  padding: 28px;
+  box-shadow: var(--shadow-soft);
+  padding: 30px;
   margin-bottom: 40px;
 }
 
@@ -483,8 +553,17 @@ a:hover { color: var(--red-deep); }
   display: flex;
   gap: 22px;
   align-items: flex-start;
-  padding: 22px 4px;
-  border-bottom: 1px solid var(--line);
+  padding: 22px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  background: var(--white);
+  margin-bottom: 16px;
+  transition: box-shadow 0.15s ease, border-color 0.15s ease;
+}
+
+.project-row:hover {
+  border-color: var(--red);
+  box-shadow: var(--shadow-soft);
 }
 
 .project-row .media-slot {
@@ -503,23 +582,33 @@ a:hover { color: var(--red-deep); }
 
 .table-cpe {
   width: 100%;
-  border-collapse: collapse;
+  border-collapse: separate;
+  border-spacing: 0;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
 }
 
 .table-cpe th,
 .table-cpe td {
   text-align: left;
-  padding: 12px 14px;
+  padding: 14px 18px;
   border-bottom: 1px solid var(--line);
   vertical-align: top;
 }
 
+.table-cpe tbody tr:last-child td {
+  border-bottom: none;
+}
+
 .table-cpe th {
-  font-family: var(--font-mono);
-  font-size: 0.75rem;
-  letter-spacing: 0.05em;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 0.78rem;
+  letter-spacing: 0.02em;
   color: var(--muted);
-  border-bottom: 2px solid var(--ink);
+  background: var(--paper);
+  border-bottom: 1px solid var(--line);
 }
 
 .table-cpe td:first-child {
@@ -531,13 +620,17 @@ a:hover { color: var(--red-deep); }
 /* FAQ */
 
 .faq-item {
-  border-bottom: 1px solid var(--line);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  background: var(--white);
+  margin-bottom: 12px;
+  overflow: hidden;
 }
 
 .faq-item summary {
   font-family: var(--font-display);
   font-weight: 600;
-  padding: 16px 4px;
+  padding: 16px 20px;
   cursor: pointer;
 }
 
@@ -546,7 +639,7 @@ a:hover { color: var(--red-deep); }
 }
 
 .faq-item p {
-  padding: 0 4px 18px 4px;
+  padding: 0 20px 18px 20px;
   color: var(--muted);
 }
 
@@ -554,21 +647,22 @@ a:hover { color: var(--red-deep); }
 
 .form-cpe label {
   font-family: var(--font-display);
+  font-weight: 600;
   font-size: 0.85rem;
   display: block;
   margin-bottom: 6px;
 }
 
 .form-cpe .form-control {
-  border-radius: 2px;
+  border-radius: var(--radius-md);
   border: 1px solid var(--line);
-  padding: 10px 12px;
+  padding: 12px 14px;
   font-family: var(--font-body);
 }
 
 .form-cpe .form-control:focus {
   border-color: var(--red);
-  box-shadow: 0 0 0 1px var(--red);
+  box-shadow: 0 0 0 2px rgba(11, 110, 119, 0.15);
 }
 
 /* Footer */
@@ -594,7 +688,7 @@ a:hover { color: var(--red-deep); }
 /* Responsive */
 
 @media (max-width: 576px) {
-  h1 { font-size: 2rem; }
-  .hero { padding: 44px 0 34px 0; }
-  .section { padding: 40px 0; }
+  h1 { font-size: 2.2rem; }
+  .hero { padding: 48px 0 38px 0; }
+  .section { padding: 48px 0; }
 }
