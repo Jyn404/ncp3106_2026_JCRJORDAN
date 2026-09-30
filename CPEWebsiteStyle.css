@@ -40,6 +40,9 @@
   --trace-tile-a: 620px;  /* Size of one tile of pattern layer A (620px by 620px) */
   --trace-tile-b: 740px;  /* Size of one tile of pattern layer B (740px by 740px) */
 }  /* end of rule: :root */
+/* complete SVG image encoded as text and embedded directly in the CSS so no image file is needed
+   compressed using base64 encoding to reduce the size of the svg making it faster to load and display
+  */
 
 * { box-sizing: border-box; }  /* Applies to EVERY element on the page -> Makes width/height include padding and border, so sizes are easier to predict */
 
